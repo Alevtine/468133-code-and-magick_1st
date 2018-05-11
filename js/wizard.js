@@ -6,6 +6,7 @@
   var wizardCoatElement = wizardElement.querySelector('.wizard-coat');
   var wizardEyesElement = wizardElement.querySelector('.wizard-eyes');
 
+
   var wizard = {
     onEyesChange: function () {},
     onCoatChange: function () {}
