@@ -1020,3 +1020,19 @@ input[type=radio]:checked + .review-mark-label
 {
     cursor: pointer;
 }
+
+.artifacts-description
+{
+    list-style-type: none;
+    color: white;
+    background-color: #1cb34d;
+    z-index: 10;
+    position: absolute;
+    top: 10%;
+    opacity: 0.8;
+    min-height: 200px;
+    padding: 10px 0 0 10px;
+    left: 0;
+    right: 0;
+    margin: 0;
+}

@@ -48,4 +48,5 @@
     evt.target.style.backgroundColor = '';
     evt.preventDefault();
   });
+
 })();
