@@ -7,14 +7,15 @@
   var setupCloseButton = document.querySelector('.setup-close');
   var setupOpenIcon = document.querySelector('.setup-open-icon');
   var formWizard = document.querySelector('.setup-wizard-form');
+  var moving;
   var SETUPBLOCK_HEIGHT = 920;
   // var SETUPBLOCK_WIDTH = 799;
   setupOpenIcon.setAttribute('tabindex', '0');
   setupCloseButton.setAttribute('tabindex', '0');
-  dialogHandle.setAttribute('style', 'z-index: 1');
 
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
+    moving = false;
 
     var beginCoord = {
       x: evt.clientX,
@@ -23,6 +24,7 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
+      moving = true;
 
       var shift = {
         x: beginCoord.x - moveEvt.clientX,
@@ -48,8 +50,18 @@
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
+
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
+
+      if (moving) {
+        var preventUpload = function (chEvt) {
+          chEvt.preventDefault();
+          moving = false;
+          dialogHandle.removeEventListener('click', preventUpload);
+        };
+        dialogHandle.addEventListener('click', preventUpload);
+      }
     };
 
     document.addEventListener('mousemove', onMouseMove);

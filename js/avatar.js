@@ -2,28 +2,26 @@
 
 (function () {
 
-  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
   var fileChooser = document.querySelector('.upload input');
   var dialogHandle = document.querySelector('.setup-user-pic');
+  var dropArea = document.querySelector('.upload');
+
 
   fileChooser.addEventListener('change', function () {
-
-    var file = fileChooser.files[0];
-    var fileName = file.name.toLowerCase();
-
-    var matches = FILE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
-    });
-
-    if (matches) {
-      var reader = new FileReader();
-
-      reader.addEventListener('load', function () {
-        dialogHandle.src = reader.result;
-      });
-
-      reader.readAsDataURL(file);
-    }
-
+    window.util.fileReader(fileChooser.files[0], dialogHandle);
   });
+
+  dropArea.addEventListener('dragenter', function (evt) {
+    evt.preventDefault();
+  });
+
+  dropArea.addEventListener('dragover', function (evt) {
+    evt.preventDefault();
+  });
+
+  dropArea.addEventListener('drop', function (evt) {
+    evt.preventDefault();
+    window.util.fileReader(evt.dataTransfer.files[0], dialogHandle);
+  });
+
 })();

@@ -4,6 +4,7 @@ window.util = (function () {
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
   var DEBOUNCE_INTERVAL = 500;
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
   return {
 
@@ -45,6 +46,20 @@ window.util = (function () {
           fun.apply(null, args);
         }, DEBOUNCE_INTERVAL);
       };
+    },
+
+    fileReader: function (file, img) {
+      var fileName = file.name.toLowerCase();
+      var matches = FILE_TYPES.some(function (it) {
+        return fileName.endsWith(it);
+      });
+      if (matches) {
+        var reader = new FileReader();
+        reader.addEventListener('load', function () {
+          img.src = reader.result;
+        });
+        reader.readAsDataURL(file);
+      }
     }
   };
 })();
